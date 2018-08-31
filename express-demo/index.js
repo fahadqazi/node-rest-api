@@ -6,9 +6,9 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 const courses = [
-    { id: 1, name: "course1" },
-    { id: 2, name: "course2" },
-    { id: 3, name: "course3" }
+    {id: 1, name: "course1"},
+    {id: 2, name: "course2"},
+    {id: 3, name: "course3"}
 ];
 
 app.get("/", (req, res) => {
@@ -27,7 +27,7 @@ app.get("/api/courses/:id", (req, res) => {
 });
 
 app.post("/api/courses/", (req, res) => {
-    const result = validateCourse(req.body)
+    const result = validateCourse(req.body);
 
     if (result.error) return res.status(400).send(result.error);
     const course = {
@@ -56,19 +56,19 @@ app.put("/api/courses/:id", (req, res) => {
     res.send(course);
 });
 
-app.delete('/api/courses/:id', (req, res) =>{
-    //look up course    
+app.delete("/api/courses/:id", (req, res) => {
+    //look up course
     //if doesn't exit, return 404
-    const course = courses.find(c => c.id === parseInt(req.params.id))
-    if(!course) return res.status(404).send('Course with that id not found')
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) return res.status(404).send("Course with that id not found");
 
     // delete
-    const index = courses.indexOf(course)
-    courses.splice(index, 1)
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
 
     //return same course
-    res.send(course)
-})
+    res.send(course);
+});
 
 app.listen(port, err => {
     if (err) throw err;
