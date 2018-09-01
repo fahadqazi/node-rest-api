@@ -1,9 +1,13 @@
 const Joi = require("joi");
+const logger = require('./logger')
+const auth = require('./authenticate')
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(logger)
+app.use(auth)
 
 const courses = [
     {id: 1, name: "course1"},
