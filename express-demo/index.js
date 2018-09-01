@@ -1,3 +1,4 @@
+const debug = require('debug')('app:startupt s')
 const config = require('config')
 const helmet = require("helmet");
 const morgan = require("morgan");
@@ -15,14 +16,14 @@ app.use(express.static("public"));
 app.use(helmet());
 
 // Logging the environment
-console.log('Application name: ' + config.get('name'))
-console.log('Mail Server: ' + config.get('mail.host'))
-console.log('Mail Password: ' + config.get('mail.password'))
+debug('Application name: ' + config.get('name'))
+debug('Mail Server: ' + config.get('mail.host'))
+debug('Mail Password: ' + config.get('mail.password'))
 
 // setting development environment
 if (app.get("env") === "development") {
     app.use(morgan("tiny"));
-    console.log("Morgan enabled...");
+    debug("Morgan enabled...");
 }
 
 // Custom Middleware
@@ -96,7 +97,7 @@ app.delete("/api/courses/:id", (req, res) => {
 
 app.listen(port, err => {
     if (err) throw err;
-    console.log(`listening on port ${port}`);
+    debug(`listening on port ${port}`);
 });
 
 function validateCourse(course) {
