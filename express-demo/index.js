@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); //key=value&key=value
+app.use(express.static('public'))
 
 app.use(logger)
 app.use(auth)
