@@ -81,6 +81,5 @@ function validateCourse(course) {
             .min(3)
             .required()
     };
-    const result = Joi.validate(course, schema);
-    return result;
+    return Joi.validate(course, schema);
 }
