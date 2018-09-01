@@ -1,5 +1,7 @@
+const debug = require('debug')('app:delete')
 const express = require('express')
 const router = express.Router();
+const Joi = require('joi')
 
 const courses = [
     {id: 1, name: "course1"},
@@ -52,6 +54,7 @@ router.delete("/:id", (req, res) => {
     //look up course
     //if doesn't exit, return 404
     const course = courses.find(c => c.id === parseInt(req.params.id));
+    debug(course)
     if (!course) return res.status(404).send("Course with that id not found");
 
     // delete
