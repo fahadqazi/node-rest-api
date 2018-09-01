@@ -1,3 +1,5 @@
+const helmet = require('helmet')
+const morgan = require('morgan')
 const Joi = require("joi");
 const logger = require('./logger')
 const auth = require('./authenticate')
@@ -8,6 +10,8 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); //key=value&key=value
 app.use(express.static('public'))
+app.use(helmet())
+app.use(morgan('tiny'))
 
 app.use(logger)
 app.use(auth)
