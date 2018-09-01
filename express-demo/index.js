@@ -9,6 +9,10 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Setting the view engine & setting location for views
+app.set('view engine', 'pug')
+app.set('views', './views')
+
 // Built in Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); //key=value&key=value
@@ -37,7 +41,7 @@ const courses = [
 ];
 
 app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.render('index.pug', {title: 'My Express App', message:'Hello world'})
 });
 
 app.get("/api/courses", (req, res) => {
