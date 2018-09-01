@@ -7,6 +7,7 @@ const logger = require("./logger");
 const auth = require("./authenticate");
 const express = require("express");
 const courses =  require('./routes/courses')
+const home = require('./routes/home')
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -22,6 +23,7 @@ app.use(helmet());
 
 // For any routes begining with /api/courses use the 'courses' router
 app.use('/api/courses', courses)
+app.use('/', home)
 
 // Logging the environment
 debug('Application name: ' + config.get('name'))
@@ -38,9 +40,6 @@ if (app.get("env") === "development") {
 app.use(logger);
 app.use(auth);
 
-app.get("/", (req, res) => {
-    res.render('index.pug', {title: 'My Express App', message:'Hello world'})
-});
 
 app.listen(port, err => {
     if (err) throw err;
