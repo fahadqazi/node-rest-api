@@ -1,3 +1,4 @@
+const config = require('config')
 const helmet = require("helmet");
 const morgan = require("morgan");
 const Joi = require("joi");
@@ -12,6 +13,13 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true})); //key=value&key=value
 app.use(express.static("public"));
 app.use(helmet());
+
+// Logging the environment
+console.log('Application name: ' + config.get('name'))
+console.log('Mail Server: ' + config.get('mail.host'))
+console.log('Mail Password: ' + config.get('mail.password'))
+
+// setting development environment
 if (app.get("env") === "development") {
     app.use(morgan("tiny"));
     console.log("Morgan enabled...");
