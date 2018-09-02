@@ -24,6 +24,9 @@ function callbackMain() {
         console.log("User: ", user);
         getRepos(user.gitHubUsername, function (repos) {
             console.log("Repos: ", repos);
+            getRepoStars(repos[0], function(stars){
+                console.log('Stars: ', stars)
+            })
         });
     });
     console.log("After");
@@ -39,6 +42,12 @@ function getRepos(username, callback) {
     setTimeout(() => {
         callback(["repo1", "repo2", "repo3"]);
     }, 2000);
+}
+
+function getRepoStars(repoName, callback){
+    setTimeout(()=>{
+        callback(3)
+    }, 2000)
 }
 
 callbackMain();
