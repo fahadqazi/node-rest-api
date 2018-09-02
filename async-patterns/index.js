@@ -92,4 +92,46 @@ function getRepoStars(repo, callback) {
   }, 2000);
 }
 
-fixCallbackHellMain();
+// fixCallbackHellMain();
+
+// 3. Promises as a solution of callback hell
+
+function promisesMain() {
+  console.log("Before");
+  getUser(1).then(function(user) {
+    console.log("user: ", user);
+    getRepos(user).then(function(repos) {
+      console.log("repos: ", repos);
+      getRepoStars(repos).then(function(stars) {
+        console.log("stars: ", stars);
+      })
+    });
+  });
+  console.log("After");
+}
+
+function getUser(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ id: id, gitHubUsername: "fahad" });
+    }, 2000);
+  });
+}
+
+function getRepos(username) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(["repo1", "repo2", "repo3"]);
+    }, 2000);
+  });
+}
+
+function getRepoStars(repoName) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(3);
+    }, 2000);
+  });
+}
+
+promisesMain();
