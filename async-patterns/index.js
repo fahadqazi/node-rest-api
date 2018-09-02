@@ -18,14 +18,16 @@ function getUser(id){
 
 // 1. Callbacks
 
-console.log('Before')
-getUser(1, function(user){
-    console.log('User: ', user)
-    getRepos(user.gitHubUsername, function(repos){
-        console.log('Repos: ', repos)
-    })
-})
-console.log('After')
+function callbackMain(){
+  console.log('Before')
+  getUser(1, function(user){
+      console.log('User: ', user)
+      getRepos(user.gitHubUsername, function(repos){
+          console.log('Repos: ', repos)
+      })
+  })
+  console.log('After')
+}
 
 function getUser(id, callback){
   setTimeout(() => {
@@ -38,3 +40,4 @@ function getRepos(username, callback){
         callback(['repo1', 'repo2', 'repo3'])
     }, 2000)
 }
+callbackMain();
