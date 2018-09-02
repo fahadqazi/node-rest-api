@@ -100,11 +100,10 @@ function promisesMain() {
   console.log("Before");
 
   getUser(1)
-      .then(user => getRepos(user.gitHubUsername))
-      .then(repos => getRepoStars(repos))
-      .then(stars => console.log('stars: ', stars))
-      .catch(err => console.log('error: ', err.message))
-
+    .then(user => getRepos(user.gitHubUsername))
+    .then(repos => getRepoStars(repos))
+    .then(stars => console.log("stars: ", stars))
+    .catch(err => console.log("error: ", err.message));
 
   console.log("After");
 }
@@ -133,4 +132,42 @@ function getRepoStars(repoName) {
   });
 }
 
-promisesMain();
+// promisesMain();
+
+// 4. Using async/await approach to deal with async code
+async function asyncAwaitMain() {
+  console.log("Before");
+
+  const user = await getUser(1);
+  const repos = await getRepos(user.gitHubUsername);
+  const stars = await getRepoStars(repos);
+  console.log("stars: ", stars);
+
+  console.log("After");
+}
+
+function getUser(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ id: id, gitHubUsername: "fahad" });
+    }, 2000);
+  });
+}
+
+function getRepos(username) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(["repo1", "repo2", "repo3"]);
+    }, 2000);
+  });
+}
+
+function getRepoStars(repoName) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(3);
+    }, 2000);
+  });
+}
+
+asyncAwaitMain();
