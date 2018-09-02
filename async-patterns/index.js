@@ -137,11 +137,14 @@ function getRepoStars(repoName) {
 // 4. Using async/await approach to deal with async code
 async function asyncAwaitMain() {
   console.log("Before");
-
-  const user = await getUser(1);
-  const repos = await getRepos(user.gitHubUsername);
-  const stars = await getRepoStars(repos);
-  console.log("stars: ", stars);
+  try {
+    const user = await getUser(1);
+    const repos = await getRepos(user.gitHubUsername);
+    const stars = await getRepoStars(repos);
+    console.log("stars: ", stars);
+  } catch (err) {
+    console.log('err: ', err.message)
+  }
 
   console.log("After");
 }
@@ -158,6 +161,7 @@ function getRepos(username) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(["repo1", "repo2", "repo3"]);
+      // reject(new Error('messed up'))
     }, 2000);
   });
 }
