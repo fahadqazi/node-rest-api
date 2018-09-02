@@ -98,15 +98,14 @@ function getRepoStars(repo, callback) {
 
 function promisesMain() {
   console.log("Before");
-  getUser(1).then(function(user) {
-    console.log("user: ", user);
-    getRepos(user).then(function(repos) {
-      console.log("repos: ", repos);
-      getRepoStars(repos).then(function(stars) {
-        console.log("stars: ", stars);
-      })
-    });
-  });
+
+  getUser(1)
+      .then(user => getRepos(user.gitHubUsername))
+      .then(repos => getRepoStars(repos))
+      .then(stars => console.log('stars: ', stars))
+      .catch(err => console.log('error: ', err.message))
+
+
   console.log("After");
 }
 
